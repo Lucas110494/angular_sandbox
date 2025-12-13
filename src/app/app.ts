@@ -7,10 +7,11 @@ import { Sibling2Component } from './components/sibling/sibling2/sibling2.compon
 @Component({
   selector: 'app-root',
   template: `
+    @if(false) {
     <div class="flex justify-between" [style.height.rem]="30">
       <div class="w-full flex flex-col justify-between">
         <div class="border h-full">
-          <app-sibling1 />
+          <app-sibling1 inputData="world" (onClickEvent)="onSibling1Click($event)" />
         </div>
 
         <div class="border h-full">
@@ -21,10 +22,19 @@ import { Sibling2Component } from './components/sibling/sibling2/sibling2.compon
         <router-outlet />
       </div>
     </div>
+    } @else {
+    <div>
+      <router-outlet />
+    </div>
+    }
   `,
   styleUrl: './app.css',
   imports: [RouterOutlet, Sibling1Component, Sibling2Component],
 })
 export class App {
   protected readonly title = signal('angular_sandbox');
+
+  onSibling1Click(value: string): void {
+    alert(`Sibling 1 clicked with value: ${value}`);
+  }
 }

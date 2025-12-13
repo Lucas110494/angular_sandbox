@@ -5,7 +5,4 @@ import { Component } from '@angular/core';
   template: `Child1Component`,
 })
 export class Child1Component {
-  ngOnInit(){
-    console.log('test');
-  }
 }
