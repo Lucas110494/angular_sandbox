@@ -7,7 +7,7 @@ import { Sibling2Component } from './components/sibling/sibling2/sibling2.compon
 @Component({
   selector: 'app-root',
   template: `
-    @if(false) {
+    @if(true) {
     <div class="flex justify-between" [style.height.rem]="30">
       <div class="w-full flex flex-col justify-between">
         <div class="border h-full">
