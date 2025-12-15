@@ -61,7 +61,7 @@
 ### `@HostListener()`
 ### `ElementRef`
 
-### Life cycles
+############################ `LIFE CYCLES`
 ### `DestroyRef`
 ### `Template Variable`
 ### `@ViewChild()` and `viewChild()` signal
@@ -69,6 +69,7 @@
 ### `@ContentChild()` and `contentChild()` signal
 ### `@ContentChildren()` and `contentChildren()` signal
 
+############################# `DIRECTIVE`
 ### `SAC` === `Structure Directive`, `Attribute Directive`, `Component Directive`
 ### `*ngIf="isShow()"`==> `[ngIf]="isShow()"`
 ### `selector: '[appSafeLink]'`, `selector: 'a[appSafeLink]'`, `selector: 'div[appSafeLink]'`
@@ -80,6 +81,13 @@
 ###   { directive: LogDirective, inputs: ['message'], outputs: ['clicked'] },
 ###   { directive: TextHoverDirective, inputs: ['textColor'] },
 ### ],
+
+############################## `PIPE`
+### Built-in pipes
+### `<pipe>:<pipe_arguments>`
+### `pure`, `impure`
+### `async as someThing`
+
 
 ### `provideAppInitializer`
 ### `provideEnvironmentInitializer`
