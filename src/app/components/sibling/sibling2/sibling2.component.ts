@@ -2,12 +2,14 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../card/card.component';
 import { CustomComponent } from '../../custom-component/custom-component.component';
+import { OnClickDirective } from '../../../directives/onClick.directive';
+import { EnhancedDirective } from '../../../directives/enhanced.directive';
 
 @Component({
   selector: 'app-sibling2',
   template: `<div class="remove">
-    <app-card class="large" variant="secondary">
-      <h3>FORM</h3>
+    <app-card class="large" variant="secondary" >
+      <h3 enhancedDirective [textColor]="'red'" message="Hello world">FORM</h3>
       <form (ngSubmit)="onSubmit()">
         <input class="border" type="text" name="username" [(ngModel)]="userNameSignal" />
         <button type="submit">Submit</button>
@@ -20,7 +22,7 @@ import { CustomComponent } from '../../custom-component/custom-component.compone
       <app-custom-component />
     </app-card>
   </div>`,
-  imports: [FormsModule, CardComponent, CustomComponent],
+  imports: [FormsModule, CardComponent, CustomComponent, OnClickDirective, EnhancedDirective],
   host: {
     class: 'large',
   },

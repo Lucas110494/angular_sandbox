@@ -4,7 +4,6 @@
 ### property binding
 ### event binding
 ### signal()`, `computed()`, `effect()`
-### `ng-container`
 ### `*ngFor`
 ### `@for()` and `track`
 ### `$index`, `$odd`, `$even`, `$count`, `$first`, `$last`
@@ -12,6 +11,9 @@
 ### `*ngIf`
 ### `@if()`, `@else if` and `@else()`
 ### `[(ngModel)]` and `ngSubmit`
+
+### `ng-container`
+
 ### `ng-content` and `select`
 
 ### `selector: 'app-button'`
@@ -61,6 +63,23 @@
 
 ### Life cycles
 ### `DestroyRef`
+### `Template Variable`
+### `@ViewChild()` and `viewChild()` signal
+### `@ViewChildren()` and `viewChildren()` signal
+### `@ContentChild()` and `contentChild()` signal
+### `@ContentChildren()` and `contentChildren()` signal
+
+### `SAC` === `Structure Directive`, `Attribute Directive`, `Component Directive`
+### `*ngIf="isShow()"`==> `[ngIf]="isShow()"`
+### `selector: '[appSafeLink]'`, `selector: 'a[appSafeLink]'`, `selector: 'div[appSafeLink]'`
+### Directive binding `[appDirective]`
+### Event binding `(appDirective)`
+### `exportAs` and use via `Template Reference` and `@ViewChild`
+### Directive composition and combination `hostDirectives`
+### hostDirectives: [
+###   { directive: LogDirective, inputs: ['message'], outputs: ['clicked'] },
+###   { directive: TextHoverDirective, inputs: ['textColor'] },
+### ],
 
 ### `provideAppInitializer`
 ### `provideEnvironmentInitializer`
