@@ -65,6 +65,10 @@
 ### `filter` lets values pass through only if they match a condition.
 ### `of(1, 2, 3, 4).pipe(filter(n => n % 2 === 0))` Output: `2, 4`
 
+## `find`
+### `find` emits the first value that matches a condition and then completes.
+### `of(1, 3, 5, 8, 10).pipe(find(n => n % 2 === 0))` Output: `8`
+
 ## `iif`
 ### `iif` (if–else for observables) chooses one of two observables at subscription time, based on a condition.
 ### `iif(() => condition, trueObservable$, falseObservable$)`
@@ -147,24 +151,52 @@
 ###  distinctUntilChanged(),
 ### )
 
-retryWhen
+## `first`
+### Emits the first value (optionally matching a condition) then completes
+### Errors if nothing matches (unless you provide a default)
+### `of(1, 2, 3).pipe(first())` Output: 1
+### `of(1, 2, 3, 4).pipe(first(n => n % 2 === 0))` Output: 2
+### W/ default value `of(1, 3, 5).pipe(first(n => n % 2 === 0, 0))` Output: 0
 
-shareRelay
+## `last`
+### last emits the final value from a stream (optionally matching a condition) and only emits when the source completes.
+### `of(1, 2, 3).pipe(last())` Output: 3
+### `of(1, 2, 4, 3).pipe(last(n => n % 2 === 0)) Output: 4
+### W/ default value `of(1, 3, 5).pipe(last(n => n % 2 === 0, 0))` Output: 0
 
+## `skip`
+### `skip` ignores the first N emissions, then lets everything else through.
+### of(1, 2, 3, 4, 5).pipe(skip(2)) Output: 3, 4, 5
 
-find
-first
-last
-skip
-skipUntil
-skipWhile
-take
-takeLast
-takeUntil
+## `skipUntil`
+### `skipUntil` ignores source emissions until another Observable emits, then lets everything after pass through.
+### `source$.pipe(skipUntil(notifier$))` (start `source$` when `notifier$` trigger)
 
-concatMap
-exhaustMap
-map
+##  `takeUntil`
+### takeUntil emits values from the source until another Observable emits, then it completes immediately.
+### `source$.pipe(takeUntil(notifier$))` (stop `source$` when `notifier$` trigger)
+
+## `take`
+### `take` emits only the first N values from a stream, then completes.
+### `of(1, 2, 3, 4, 5).pipe(take(3))` Output: 1, 2, 3
+
+## `skipWhile`
+### `skipWhile` ignores values from the source while a condition is `true`, then emits everything after the condition `false`.
+### source$.pipe(skipWhile(value => condition(value)))
+
+## `takeLast`
+### `takeLast` emits the last N values of a stream, but only after the source completes.
+### `of(1, 2, 3, 4, 5).pipe(takeLast(3))` Output: 3, 4, 5
+
+## `exhaustMap`
+### `exhaustMap` is a higher-order mapping operator that
+### `source$.pipe(exhaustMap(value => innerObservable(value)))`
+### First source emission → starts inner Observable
+### While inner Observable is active → other source emissions are ignored
+### Once inner Observable completes → next source emission is processed
+
+## `map`
+### `map` is a transformation operator that applies a function to each emitted value from the source Observable and emits the result.
 mergeMap
 switchMap
 
@@ -178,3 +210,8 @@ lasValueFrom
 Subject
 BehaviorSubject
 RelaySubject
+
+
+retryWhen
+
+shareRelay
