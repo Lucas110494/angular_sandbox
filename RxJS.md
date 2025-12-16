@@ -1,0 +1,153 @@
+## `combineLatest`
+### `combineLatest([$obs1, $obs2, ...])`
+### Emit an array of value and ONLY when all sources emit together
+### After that, If `$obs1` first, then the result will be `[$obs1 (latest), $obs2 (current), ...]`
+### Good for page filter, refetch if sort, pagination, filtering changed...
+
+## `withLatestFrom`
+### `$obs1.pipe(withLatestFrom($obs2))`
+### Emit an array of value ONLY when the source `$obs1` emit
+### the result will be `[$obs1 (latest), $obs2 (latest), ...]`
+### Good fpr call http when: route change, auth-save timer
+
+## `forkJoin`
+### `forkJoin([$obs1, $obs2, ...])` or `forkJoin({ obs1: $obs1, obs2: $obs2 })`
+### Call multiple APIs in parallel, will wait until ALL source observables complete.
+### Emit one and complete, not suitable for `Repeated` observable
+### Good for calling API on init
+
+## `zip`
+### `zip($obs1, $obs2, ...)`
+### Emit an array of value, it will wait and ONLY emit when all sources emit together/completed
+### Stop if want of the observables error or stop emitting
+
+## `concat`
+### `concat($obs1, $obs2, ...)`
+### Emit in SEQUEL, and in strict order
+### `$obs1`, must be completed before `$obs2` emit
+### If any source errors `concat` errors immediately, No “final completion” happens
+### Suitable for workflow process, ex: `Create => Assembly => Paint`
+
+## `concatMap`
+### `$obs1.pipe(concatMap($obs2))`
+### Emit inner obs in sequel ordered after the source `$obs1` emit
+
+## `endWith`
+### `$obs1.pipe(endWith(...))`
+### `endWith` emits one or more values ONLY when the source observable completes.
+### If the source NEVER completes, `endWith` will NEVER emit.
+### Suitable for `Final UI or log emission` `API calls`
+
+## `startWith`
+### `$obs1.pipe(startWith(...))`
+### emits one or more values immediately upon subscription, before the source observable emits anything.
+### Because many Angular observables: don’t emit immediately only emit on user action or async events `startWith` gives your UI an initial state.
+### Good to create init value like `[]` before API call completed
+
+## `defaultIfEmpty`
+### `$obs1.pipe(defaultIfEmpty(...))`
+### `defaultIfEmpty` emits a default value if the source completes WITHOUT emitting anything.
+### Diff between `defaultIfEmpty` (only after completion) and `startWith` (emit immediately on subscribe)
+### Suitable for initial value
+### `of().pipe(startWith(0))`        // emits 0 immediately
+### `of().pipe(defaultIfEmpty(0))`  // emits 0 after completion
+
+## `every`
+### `every` checks whether ALL values emitted by the source match a condition.
+### source$.pipe(every(value => condition))
+### Emit `true` all values passed, `false` at least one value failed, then complete
+### `of(2, 3, 4).pipe(every(n => n % 2 === 0))` Output: `false`
+### `of(2, 4).pipe(every(n => n % 2 === 0))` Output: `ttrue`
+### Validate all form fields before submit `from(this.form.controls).pipe(every(control => control.valid));`
+### Authorization / permission checks `from(user.permissions).pipe(every(p => p.allowed));`
+
+## `filter`
+### `filter` lets values pass through only if they match a condition.
+### `of(1, 2, 3, 4).pipe(filter(n => n % 2 === 0))` Output: `2, 4`
+
+## `iif`
+### `iif` (if–else for observables) chooses one of two observables at subscription time, based on a condition.
+### `iif(() => condition, trueObservable$, falseObservable$)`
+### The condition is evaluated ONLY ON SUBSCRIPTION, not on every emission.
+### `loadData$ = iif(() => isAdmin, getAdminData(), getUserData());`
+
+## `EMPTY`
+### `EMPTY` emits no values and completes immediately
+### `EMPTY.pipe(defaultIfEmpty('hello'))`
+### Can be use to skip an API call
+### load$ = this.click$.pipe(
+###   switchMap(() =>
+###     this.hasPermission
+###       ? this.api.loadData()
+###       : EMPTY
+###   )
+### );
+### or cancel after error handling
+### this.api.call().pipe(
+###   catchError(err => {
+###     this.notify(err);
+###     return EMPTY;
+###   })
+### );
+
+## `from`
+### `from().pipe()` converts other data types into an Observable.
+### `Promise`, `Array / Iterable`, `String`, `Set / Map`
+### `from(fetch('/api/data'))`
+
+## `fromEvent`
+### `fromEvent` creates an observable from event sources.
+### `fromEvent(target, eventName)`
+
+## `interval`
+### `interval(timer)` creates an observable that emits 0, 1, 2, 3, … at a fixed time interval (milliseconds)
+### never completes on its own, it emits forever
+### Use for count down timer or refresh dashboard
+
+## `timer`
+### `timer`creates an observable that can emit once after a delay or emit repeatedly after an initial delay
+### `timer(dueTime)`
+### `timer(dueTime, period)`
+
+## `of`
+### of creates an observable that emits the values you pass synchronously in order then completes immediately
+
+range
+throwError
+
+catchError
+retry
+retryWhen
+
+shareRelay
+
+debounceTime
+distinct
+distinctUntilChanged
+filter
+find
+first
+last
+skip
+skipUntil
+skipWhile
+take
+takeLast
+takeUntil
+
+concatMap
+exhaustMap
+map
+mergeMap
+switchMap
+
+tap
+delay
+finalize
+timeInterval
+
+lasValueFrom
+
+Subject
+BehaviorSubject
+RelaySubject

@@ -22,7 +22,7 @@ import { EnhancedDirective } from '../../../directives/enhanced.directive';
       <app-custom-component />
     </app-card>
   </div>`,
-  imports: [FormsModule, CardComponent, CustomComponent, OnClickDirective, EnhancedDirective],
+  imports: [FormsModule, CardComponent, CustomComponent, EnhancedDirective],
   host: {
     class: 'large',
   },

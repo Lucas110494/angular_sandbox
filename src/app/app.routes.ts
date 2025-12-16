@@ -9,4 +9,8 @@ export const routes: Routes = [
     path: 'form',
     loadChildren: () => import('./pages/form/route').then((c) => c.routes),
   },
+  {
+    path: 'rxjs',
+    loadChildren: () => import('./pages/rxjs/routes').then((c) => c.routes),
+  }
 ];
