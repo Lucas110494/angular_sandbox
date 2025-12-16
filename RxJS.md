@@ -197,15 +197,25 @@
 
 ## `map`
 ### `map` is a transformation operator that applies a function to each emitted value from the source Observable and emits the result.
-mergeMap
-switchMap
 
-tap
+## `mergeMap`
+### Maps each value from the source Observable into an inner Observable.
+### const letters$ = of('A', 'B', 'C');
+### letters$.pipe(
+###   mergeMap(letter => of(letter + 1, letter + 2))
+### )
+
+## `switchMap`
+### `switchMap` is a higher-order mapping operator that maps each value from the source Observable into an inner Observable and cancels the previous inner Observable if a new source value arrives.
+
+## `tap`
+### `tap` lets you “peek” into an observable stream without modifying the data
+
 delay
 finalize
 timeInterval
 
-lasValueFrom
+lastValueFrom
 
 Subject
 BehaviorSubject

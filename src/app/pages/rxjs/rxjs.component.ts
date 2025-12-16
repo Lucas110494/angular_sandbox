@@ -13,6 +13,7 @@ import {
   from,
   fromEvent,
   interval,
+  mergeMap,
   of,
   shareReplay,
   startWith,
@@ -72,7 +73,10 @@ export class RxjsComponent implements OnInit, AfterViewInit {
     // })
     // this.throwError();
     // this.debounceTime();
-    this.distinct();
+    // this.distinct();
+    // this.mergeMap();
+
+    from([1, 2, 3]).pipe(delay(3000)).subscribe(console.log);
   }
 
   ngAfterViewInit(): void {
@@ -84,6 +88,14 @@ export class RxjsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  mergeMap(): void {
+    const letters$ = of('A', 'B', 'C');
+
+    letters$.pipe(mergeMap((letter) => of(letter + 1, letter + 2))).subscribe((val) => {
+      console.log(val);
+    });
+  }
+
   distinct() {
     from([
       { id: 1, name: 'a' },
@@ -91,7 +103,7 @@ export class RxjsComponent implements OnInit, AfterViewInit {
       { id: 1, name: 'a' },
       { id: 3, name: 'c' },
     ])
-      .pipe(distinct(u => u.id))
+      .pipe(distinct((u) => u.id))
       .subscribe((val) => {
         console.log(val);
       });
