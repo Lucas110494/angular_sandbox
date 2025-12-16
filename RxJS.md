@@ -112,19 +112,46 @@
 ## `of`
 ### of creates an observable that emits the values you pass synchronously in order then completes immediately
 
-range
-throwError
+## `throwError`
+### `throwError` — the RxJS operator used to create an observable that errors immediately.
+### `throwError(() => new Error('Boom'))`
+### emits no next values, errors immediately and never completes normally
 
-catchError
-retry
+
+## `catchError`
+### `catchError` is an error-handling operator that lets you intercept an error from an Observable and replace it with another Observable instead of letting the stream die.
+### Catches errors only, must return an Observable and the original stream completes
+### `catchError(() => of([]));`
+
+## `retry`
+### `retry(numberOfTry)`
+### `retry()` automatically resubscribes to a source Observable when it errors, up to a given number of times.
+
+## `debounceTime`
+### `debounceTime` waits for silence before emitting the latest value (only emit when the user stops doing something.)
+### `inputControl.valueChanges.pipe(debounceTime(300))`
+
+## `distinct`
+### `distinct` filters out duplicate values that have already appeared at any time before in the stream.
+### from([
+###   { id: 1, name: 'a' },
+###   { id: 2, name: 'b' },
+###    ...
+### ])
+### .pipe(distinct(u => u.id))
+
+## `distinctUntilChanged`
+### `distinctUntilChanged` filters out consecutive duplicate values.
+### this.searchControl.valueChanges.pipe(
+###  debounceTime(300),
+###  distinctUntilChanged(),
+### )
+
 retryWhen
 
 shareRelay
 
-debounceTime
-distinct
-distinctUntilChanged
-filter
+
 find
 first
 last

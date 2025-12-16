@@ -6,6 +6,7 @@ import {
   debounceTime,
   defaultIfEmpty,
   delay,
+  distinct,
   EMPTY,
   endWith,
   forkJoin,
@@ -13,15 +14,23 @@ import {
   fromEvent,
   interval,
   of,
+  shareReplay,
   startWith,
+  throwError,
   timer,
   withLatestFrom,
   zip,
 } from 'rxjs';
 import { AppService } from '../../app.service';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  template: ` <button #btn (click)="onClick()">Click me</button> `,
+  template: `
+    <div>
+      <!-- <button #btn (click)="onClick()">Click me</button> -->
+      <input [formControl]="inputControl" class="border" type="text" />
+    </div>
+  `,
   styles: `
     button {
       border: 1px solid #000;
@@ -30,10 +39,13 @@ import { AppService } from '../../app.service';
       cursor: pointer;
     }
   `,
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class RxjsComponent implements OnInit, AfterViewInit {
   private btnRef = viewChild<HTMLButtonElement>('btn');
   private _appService = inject(AppService);
+
+  inputControl = new FormControl(null);
 
   a$ = interval(1000);
   b$ = interval(3000);
@@ -58,15 +70,62 @@ export class RxjsComponent implements OnInit, AfterViewInit {
     // timer(2000, 1000).subscribe((val) => {
     //   console.log(val);
     // })
+    // this.throwError();
+    // this.debounceTime();
+    this.distinct();
+  }
+
+  ngAfterViewInit(): void {
+    // fromEvent(this.inputFieldRef().nativeElement, 'change').subscribe((val) => {
+    //   console.log(val);
+    // });
+    this.inputControl.valueChanges.pipe(debounceTime(300)).subscribe((val) => {
+      console.log(val);
+    });
+  }
+
+  distinct() {
+    from([
+      { id: 1, name: 'a' },
+      { id: 2, name: 'b' },
+      { id: 1, name: 'a' },
+      { id: 3, name: 'c' },
+    ])
+      .pipe(distinct(u => u.id))
+      .subscribe((val) => {
+        console.log(val);
+      });
+  }
+
+  debounceTime() {
+    from([1, 2, 3, 4])
+      .pipe(debounceTime(200))
+      .subscribe((val) => {
+        console.log(val);
+      });
+  }
+
+  retry() {
+    shareReplay;
+  }
+
+  throwError(): void {
+    throwError(() => new Error('test')).subscribe({
+      next(value) {
+        console.log(value);
+      },
+      error(err) {
+        console.log(err?.message);
+      },
+    });
   }
 
   from() {
     const arr = [1, 2, 3, 4, 5];
     const aPromise = new Promise((res, rej) => res('Hello'));
-    from(arr)
-      .subscribe((val) => {
-        console.log(val);
-      });
+    from(arr).subscribe((val) => {
+      console.log(val);
+    });
   }
 
   empty() {
@@ -129,12 +188,6 @@ export class RxjsComponent implements OnInit, AfterViewInit {
 
   retrievePosts() {
     return this._appService.retrievePosts();
-  }
-
-  ngAfterViewInit(): void {
-    // fromEvent(this.btnRef().nativeElement, 'click').subscribe((val) => {
-    //   console.log(val);
-    // });
   }
 
   onClick(): void {}
