@@ -12,5 +12,9 @@ export const routes: Routes = [
   {
     path: 'rxjs',
     loadChildren: () => import('./pages/rxjs/routes').then((c) => c.routes),
-  }
+  },
+  {
+    path: 'template',
+    loadChildren: () => import('./pages/template/route').then((m) => m.routes),
+  },
 ];

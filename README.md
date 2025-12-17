@@ -8,11 +8,13 @@
 ### `@for()` and `track`
 ### `$index`, `$odd`, `$even`, `$count`, `$first`, `$last`
 ### `@empty`
-### `*ngIf`
+### `*ngIf="condition;else"`
 ### `@if()`, `@else if` and `@else()`
 ### `[(ngModel)]` and `ngSubmit`
 
 ### `ng-container`
+### `ngTemplateOutlet`
+### `<ng-container *ngTemplateOutlet="estimateTemplate;context:{}">`
 
 ### `ng-content` and `select`
 
@@ -28,11 +30,11 @@
 ### `ViewEncapsulation.None`
 ### `ViewEncapsulation.ShadowDom`
 
+### `:host`
 ### :host([variant="hidden"]) {
 ###   display: none;
 ### }
 
-### `:host`
 ### :host(.large) {
 ###   font-size: 2.25rem;
 ### }

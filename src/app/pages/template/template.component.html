@@ -1,0 +1,8 @@
+<div>
+  <ng-container *ngTemplateOutlet="testing; context: {userData}" />
+</div>
+
+<ng-template #testing let-user="userData" >
+  <h1>Name: {{user.name}}</h1>
+  <p>Username: {{user.username}}</p>
+</ng-template>

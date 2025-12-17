@@ -61,7 +61,7 @@ export class RxjsComponent implements OnInit, AfterViewInit {
     // });
     // this.getData();
     // this.zipper();
-    // this.concat()
+    // this.concat();
     // this.concatMap();
     // this.endWith();
     // this.startWith();
@@ -76,7 +76,7 @@ export class RxjsComponent implements OnInit, AfterViewInit {
     // this.distinct();
     // this.mergeMap();
 
-    from([1, 2, 3]).pipe(delay(3000)).subscribe(console.log);
+    // from([1, 2, 3]).pipe(delay(3000)).subscribe(console.log);
   }
 
   ngAfterViewInit(): void {
@@ -169,6 +169,7 @@ export class RxjsComponent implements OnInit, AfterViewInit {
   concat(): void {
     concat(of('A').pipe(delay(1000)), of('B').pipe(delay(1000)), of('C')).subscribe((val) => {
       console.log(val);
+      console.log('###########');
     });
   }
 
